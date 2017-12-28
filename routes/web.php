@@ -14,6 +14,13 @@
 Route::get('/', function (Request $request) {
     return redirect('/sessions');
 });
+
+// Auth
+Route::get('/login', 'Auth\LoginController@index')->name('login');
+Route::post('/login', 'Auth\LoginController@login');
+Route::get('/logout', 'Auth\LoginController@logout');
+
+// Session
 Route::get('/sessions', 'KronoxSessionController@index');
 Route::get('/sessions/delete/{session}', 'KronoxSessionController@delete');
 Route::post('/sessions', 'KronoxSessionController@add');
