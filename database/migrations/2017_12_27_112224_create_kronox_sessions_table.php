@@ -17,6 +17,7 @@ class CreateKronoxSessionsTable extends Migration
             $table->increments('id');
             $table->string('JSESSIONID');
             $table->string('MdhUsername');
+            $table->boolean('sessionActive');
             $table->timestamps();
         });
     }

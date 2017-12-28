@@ -11,5 +11,9 @@
 |
 */
 
-Route::get('/', 'KronoxSessionController@index');
+Route::get('/', function (Request $request) {
+    return redirect('/sessions');
+});
+Route::get('/sessions', 'KronoxSessionController@index');
 Route::get('/sessions/delete/{session}', 'KronoxSessionController@delete');
+Route::post('/sessions', 'KronoxSessionController@add');

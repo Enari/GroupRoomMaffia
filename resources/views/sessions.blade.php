@@ -1,60 +1,65 @@
-{{--               
-@extends('layouts.app')
-@section('head')
-<title>sessions</title>
-@endsection
+@extends('layouts.master')
+@section('title', 'Group Room Maffia')
 @section('content')
---}}
-<!doctype html>
-<html>
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-
-        <title>Group Room Maffia</title>
-
-        <!-- Fonts -->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    </head>
-
-    <body>
-        <div class="flex-center position-ref full-height">
-            <div class="content">
                 <h1>Sessions</h1>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#createModal" title="Add Category">Add</button>
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSessionModal" title="Add Category">Add</button>
                 <div class="table">
                 <table class="table table-bordered table-striped table-hover table-fixed">
                     <thead>
                         <tr>
-                            <th> Name </th>
-                            <th> Limit </th>
-                            <th> Sort number </th>
-                            <th> Parent Category </th>
+                            <th> MDH Username </th>
+                            <th> JSESSIONID </th>
+                            <th> Active </th>
+                            <th> Last poll </th>
                             <th> Actions </th>
                         </tr>
                     </thead>
                     <tbody>
-                        @if (empty($sessions))
-                        <p>There are no sessions</p>
-                        @else
-                        @foreach($sessions as $session)
+@if ($sessions->count() == 0)
+                        <tr><td colspan="5">There are no sessions</td></tr>
+@else
+{{-- var_dump($sessions) --}}
+@foreach($sessions as $session)
                         <tr>
                             <td>{{ $session->MdhUsername }}</td>
                             <td>{{ $session->JSESSIONID }}</td>
-                            <td>{{ $session->sortnumber }}</td>
+                            <td>{{ $session->sessionActive }}</td>
+                            <td>{{ \Carbon\Carbon::parse($session->updated_at)->diffForHumans() }}</td>
                             <td><a href="{{ action('KronoxSessionController@delete', $session->id) }}">
-                            <button type="button" class="btn btn-info btn-sm" title="Up">
-                            <span class="glyphicon glyphicon-trash" aria-hidden="true"/>
+                            <button type="button" class="btn btn-info btn-sm" title="Delete">
+                            <span class="fa fa-trash" aria-hidden="true"/>
                             </button></a></td>
                         </tr>
-                        @endforeach
-                        @endif
+@endforeach
+@endif
                     </tbody>
                 </table>
                 <div class="pagination-wrapper"> {!! $sessions->render() !!} </div>
                 </div>
-            </div>
-        </div>
-    </body>
-</html>
+                {{-- Modal --}}
+                <div class="modal fade" id="addSessionModal" tabindex="-1" role="dialog" aria-hidden="true">
+                  <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Add Session</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+                      <div class="modal-body">
+                        <form id="addSessionForm" method="post">
+                          <div class="form-group">
+                            <label for="JSESSIONID" class="col-form-label">JSESSIONID:</label>
+                            <input type="text" class="form-control" id="JSESSIONID" name="JSESSIONID"></input>
+                            {{ csrf_field() }}
+                          </div>
+                        </form>
+                      </div>
+                      <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                        <button type="submit" form="addSessionForm" value="Submit" class="btn btn-primary">Add Session</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+@endsection
