@@ -18,9 +18,10 @@
           Profile
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" href="/logout">Logout</a>
         </div>
       </li>
     </ul>
   </div>
 </nav>
+<div class="container-fluid" style="padding-bottom: 1rem"></div> {{-- Ugly hack to get the padding to work... --}}
