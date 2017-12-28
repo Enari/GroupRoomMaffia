@@ -31,7 +31,7 @@ class Kernel extends ConsoleKernel
             foreach (KronoxSession::all() as $session) {
                 $session->poll();
             }
-        })->->everyFifteenMinutes();
+        })->everyFifteenMinutes();
     }
 
     /**
