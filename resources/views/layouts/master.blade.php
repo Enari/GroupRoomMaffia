@@ -1,15 +1,17 @@
 <!doctype html>
 <html lang="en">
     <head>
-        @include('layouts.subviews.headder')
+        @include('layouts.subviews.header')
+        @yield('header')
         <title>@yield('title')</title>
     </head>
     <body>
         @include('layouts.subviews.navbar')
         <div class="container">
-        @include('layouts.subviews.errors')
-        @yield('content')
+            @include('layouts.subviews.errors')
+            @yield('content')
         </div>
-@include('layouts.subviews.footer')
+        @include('layouts.subviews.footer')
+        @yield('footer')
     </body>
 </html>
