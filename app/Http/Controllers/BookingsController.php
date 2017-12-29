@@ -39,7 +39,7 @@ class BookingsController extends Controller
         $url = $url . '&flik=FLIK_0001';
 
         $result = KronoxCommunicator::httpGet($url, $request->user);
-        return redirect('/bookings')->withErrors(array('result' => $result));
+        return redirect(action('BookingsController@index'))->withErrors(array('result' => $result));
     }
 
     public function unBook($booker, $id)
@@ -51,7 +51,7 @@ class BookingsController extends Controller
 
         $result = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
 
-        return redirect('/bookings')->withErrors(array('result' => $result));
+        return redirect(action('BookingsController@index'))->withErrors(array('result' => $result));
     }
 
     public function allBookings($date = null)
