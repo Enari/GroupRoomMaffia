@@ -24,3 +24,6 @@ Route::get('/logout', 'Auth\LoginController@logout');
 Route::get('/sessions', 'KronoxSessionController@index');
 Route::get('/sessions/delete/{session}', 'KronoxSessionController@delete');
 Route::post('/sessions', 'KronoxSessionController@add');
+
+// Bookings
+Route::get('/bookings', 'BookingsController@index');
