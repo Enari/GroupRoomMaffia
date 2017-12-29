@@ -26,7 +26,7 @@
                             <td>{{ $session->sessionActive }}</td>
                             <td>{{ \Carbon\Carbon::parse($session->updated_at)->diffForHumans() }}</td>
                             <td><a href="{{ action('KronoxSessionController@delete', $session->id) }}">
-                            <button type="button" class="btn btn-info btn-sm" title="Delete">
+                            <button type="button" class="btn btn-danger btn-sm" title="Delete">
                             <span class="fa fa-trash" aria-hidden="true"/>
                             </button></a></td>
                         </tr>
