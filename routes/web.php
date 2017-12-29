@@ -29,4 +29,4 @@ Route::post('/sessions', 'KronoxSessionController@add');
 Route::get('/mybookings', 'BookingsController@index');
 Route::get('/bookings/delete/{booker}/{id}', 'BookingsController@unBook');
 Route::post('/mybookings', 'BookingsController@book');
-Route::get('/allbookings/{date?}', 'bookingsController@allBookings');
+Route::get('/allbookings/{date?}', 'BookingsController@allBookings');
