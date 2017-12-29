@@ -12,12 +12,33 @@
         <tr>
             <th>Date</th>
             <th>Time</th>
+            <th>Room</th>
             <th>Booker</th>
             <th>Message</th>
             <th>Actions</th>
         </tr>
     </thead>
     <tbody>
+@if(empty($bookings))
+             <tr><td>No bookings for any of the active sessions</td><td></td><td></td><td></td><td></td><td></td></tr>
+@else
+  @foreach ($bookings as $booking)
+    <tr>
+      <td>{{ $booking->date }}</td>
+      <td>{{ $booking->time }}</td>
+      <td>{{ $booking->room }}</td>
+      <td>{{ $booking->booker }}</td>
+      <td>{{ $booking->message }}</td>
+      <td>
+        <a href="{{ action('BookingsController@unBook', ['booker' => $booking->booker, 'id' => $booking->bookingID]) }}">
+          <button type="button" class="btn btn-danger btn-sm" title="Delete">
+            <span class="fa fa-trash" aria-hidden="true"/>
+          </button>
+        </a>
+      </td>
+    </tr>
+  @endforeach
+@endif
     </tbody>
 </table>
 {{-- <div class="pagination-wrapper"> {!! $sessions->render() !!} </div> --}}
@@ -36,8 +57,7 @@
         <form id="newBookingForm" method="post">
           <div class="form-group">
             <label for="user">User:</label>
-            <select class="form-control" id="user"{{ ($sessions->count() == 0) ? ' disabled' : ''}}>
-              {{!! var_dump($sessions) !!}}
+            <select class="form-control" id="user" name="user" {{ ($sessions->count() == 0) ? ' disabled' : ''}}>
 @if($sessions->count() == 0)
               <option>No active sessions</option>
 @else
@@ -50,7 +70,7 @@
           <div class="form-group date">
             <label for="date" class="col-form-label">Date:</label>
             <div class="input-group date">
-              <input type="text" class="form-control" id="date">
+              <input type="text" class="form-control" id="date" name="date">
               <div class="input-group-addon">
                 <span class="fa fa-calendar"></span>
               </div>
@@ -58,7 +78,7 @@
           </div>
           <div class="form-group">
             <label for="time">Time</label>
-            <select class="form-control" id="time">
+            <select class="form-control" id="time" name="time">
               <option value="0">08:15-10:00</option>
               <option value="1">10:15-12:00</option>
               <option value="2">12:15-14:00</option>
@@ -80,7 +100,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="submit" form="newBookingForm" value="Submit" class="btn btn-primary">Add Session</button>
+        <button type="submit" form="newBookingForm" value="Submit" class="btn btn-primary">Make Booking</button>
       </div>
     </div>
   </div>
