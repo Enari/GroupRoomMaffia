@@ -3,36 +3,21 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Helpers\KronoxCommunicator;
 
 class KronoxSession extends Model
 {
-    protected $fillable = [
-        'MdhUsername', 
-        'JSESSIONID',
-    ];
+    protected $fillable = ['MdhUsername', 'JSESSIONID', 'sessionActive'];
 
     public function poll(){
-        $url = 'https://webbschema.mdh.se/ajax/ajax_session.jsp?op=anvandarId';
-        $options = array(
-          'http' => array(
-              'header'  => "Content-type: application/x-www-form-urlencoded\r\n" .
-              "Cookie: JSESSIONID=" . $this->JSESSIONID . ";\r\n",
-              'method'  => 'GET',
-          )
-        );
+        $url = 'https://webbschema.mdh.se/ajax/ajax_session.jsp?op=poll';
+        $result = KronoxCommunicator::httpGet($url, $this->JSESSIONID);
+        if($result == "OK"){
+            $this->sessionActive = true;
+        }else{
+            $this->sessionActive = false;
+        }
+        $this->save();
 
-        $context  = stream_context_create($options);
-        try {
-            $result = file_get_contents($url, false, $context);
-            if($result == "OK"){
-                $this->sessionActive = true;
-            }
-            else{
-                $this->sessionActive = false;
-            }
-            $this->save();
-        }
-        catch (\Exception $e) {
-        }
     }
 }
