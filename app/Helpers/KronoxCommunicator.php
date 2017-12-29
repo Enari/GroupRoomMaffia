@@ -5,38 +5,40 @@ namespace App\Helpers;
 use Carbon\Carbon;
 
 use App\Models\Booking;
+use App\Models\KronoxSession;
 
 class KronoxCommunicator
 {
-    public static function httpGet($url, $JSESSIONID){
-        $options = array(
-          'http' => array(
-              'header'  => "Content-type: application/x-www-form-urlencoded\r\n" .
-              "Cookie: JSESSIONID=" . $JSESSIONID . ";\r\n",
-              'method'  => 'GET',
-          ));
-        $context  = stream_context_create($options);
+  public static function httpGet($url, $JSESSIONID)
+  {
+      $options = array(
+        'http' => array(
+            'header'  => "Content-type: application/x-www-form-urlencoded\r\n" .
+            "Cookie: JSESSIONID=" . $JSESSIONID . ";\r\n",
+            'method'  => 'GET',
+        ));
+      $context  = stream_context_create($options);
 
-        try {
-            $result = file_get_contents($url, false, $context);
-            return $result;
-        }
-        catch (\Exception $e) {
-            return null;
-        }
+      try {
+          $result = file_get_contents($url, false, $context);
+          return $result;
+      }
+      catch (\Exception $e) {
+          return null;
+      }
+  }
+
+  public static function DOMinnerHTML(\DOMNode $element) 
+  {
+    $innerHTML = ""; 
+    $children  = $element->childNodes;
+
+    foreach ($children as $child) 
+    { 
+        $innerHTML .= $element->ownerDocument->saveHTML($child);
     }
 
-    public static function DOMinnerHTML(\DOMNode $element) 
-    { 
-      $innerHTML = ""; 
-      $children  = $element->childNodes;
-
-      foreach ($children as $child) 
-      { 
-          $innerHTML .= $element->ownerDocument->saveHTML($child);
-      }
-
-      return $innerHTML; 
+    return $innerHTML; 
   }
 
   public static function getMyBookings($JSESSIONID)
@@ -70,5 +72,48 @@ class KronoxCommunicator
     }
 
     return $bookings;
+  }
+
+  public static function getAllBookings($date)
+  {
+    $session = KronoxSession::where('sessionActive', 1)->first();
+
+    $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=hamtaBokningar&flik=FLIK_0001';
+    $url = $url . '&datum=' . substr($date, 2, 8);
+
+    $html = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
+      
+    $dom = new \DOMDocument;
+    $dom->loadHTML($html);
+
+    $rows;
+
+    $headerRow = $dom->getElementsByTagName('tr')->item(0);
+    $dom->getElementsByTagName('tr')->item(0)->parentNode->removeChild($headerRow );
+
+
+    foreach ($dom->getElementsByTagName('tr') as $tableRow)
+    {
+      $row = [];
+
+      foreach ($tableRow->getElementsByTagName('td') as $cell) {
+        if($cell->getAttribute('class') == "grupprum-kolumn"){
+          $row[] = KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('b')->item(0));
+        }
+        elseif( strpos($cell->getAttribute('class'), 'grupprum-upptagen') !== false){
+          $row[] = substr(trim(KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('center')->item(0)), "\t\n\r"), 0 , -3); //Don't ask, magic!
+        }
+        elseif ( $cell->getAttribute('class') == "grupprum-ledig grupprum-kolumn" ) {
+          $row[] = 'Free';
+        }
+        elseif ( $cell->getAttribute('class') == "grupprum-passerad grupprum-kolumn" ) {
+          $row[] = '';
+        }
+      }
+      $rows[] = $row;
+    }
+
+
+    return $rows;
   }
 }
