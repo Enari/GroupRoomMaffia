@@ -11,7 +11,7 @@
     </div>
     <div class="col-sm-2">
       <div class="input-group date">
-        <input type="text" class="form-control" onchange="window.location.replace('{{ action('bookingsController@allBookings') }}/' + this.value)" id="date" name="date" value="{{$date}}">
+        <input type="text" class="form-control" onchange="window.location.replace('{{ action('BookingsController@allBookings') }}/' + this.value)" id="date" name="date" value="{{$date}}">
         <div class="input-group-addon">
           <span class="fa fa-calendar"></span>
         </div>
