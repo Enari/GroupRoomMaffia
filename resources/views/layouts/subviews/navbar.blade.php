@@ -16,9 +16,6 @@
         <a class="nav-link" href="#">Schedulled bookings</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Users</a>
-      </li>
-      <li class="nav-item">
         <a class="nav-link" href="/sessions">Sessions</a>
       </li>
 @endauth
