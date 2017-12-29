@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function (Request $request) {
-    return redirect('/sessions');
+    return redirect('/allbookings');
 });
 
 // Auth
@@ -26,6 +26,7 @@ Route::get('/sessions/delete/{session}', 'KronoxSessionController@delete');
 Route::post('/sessions', 'KronoxSessionController@add');
 
 // Bookings
-Route::get('/bookings', 'BookingsController@index');
+Route::get('/mybookings', 'BookingsController@index');
 Route::get('/bookings/delete/{booker}/{id}', 'BookingsController@unBook');
-Route::post('/bookings', 'BookingsController@book');
+Route::post('/mybookings', 'BookingsController@book');
+Route::get('/allbookings/{date?}', 'bookingsController@allBookings');

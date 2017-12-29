@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Carbon\Carbon;
 use App\Models\KronoxSession;
 use App\Helpers\KronoxCommunicator;
 use App\Models\Booking;
@@ -54,4 +54,15 @@ class BookingsController extends Controller
         return redirect('/bookings')->withErrors(array('result' => $result));
     }
 
+    public function allBookings($date = null)
+    {
+        if($date == null)
+        {
+            $date = substr(Carbon::now(), 0, 10);
+        }
+
+        $sessions = KronoxSession::where('sessionActive', 1)->orderBy('MdhUsername', 'asc')->get();
+        $rows = KronoxCommunicator::getAllBookings($date);
+        return view('allbookings', compact(['sessions', 'rows', 'date']));
+    }
 }
