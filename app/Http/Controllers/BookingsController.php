@@ -72,7 +72,9 @@ class BookingsController extends Controller
     {
         if($date == null)
         {
-            $date = substr(Carbon::now(), 0, 10);
+            // If time is after 20 (last grouproom time) display bookings for next day instead.
+            $date = (Carbon::createFromTime(20, 0, 0)->lt(Carbon::now()) ? Carbon::tomorrow() : Carbon::now()); 
+            $date = $date->toDateString();
         }
 
         $sessions = KronoxSession::where('sessionActive', 1)->orderBy('MdhUsername', 'asc')->get();
