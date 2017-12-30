@@ -4,7 +4,7 @@
 @endsection
 @section('content')
 <div class="row mb-2 ">
-    <div class="col-sm-4 mr-auto">
+    <div class="col-sm-6 mr-auto">
       <h1>Schedulled Bookings</h1>
     </div>
 </div>
