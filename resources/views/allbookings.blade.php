@@ -39,8 +39,12 @@
       @if($cell == "Free")
         <td><a href="#" style="color: #00f000;" data-toggle="modal" data-target="#BookingModal" data-room="{{ $row[0] }}" data-time="{{ $i-1 }}">Free</a></td>
       @else
-          <td>{{ $cell}}</td>
+        @if(in_array($cell, $friends))
+          <td><p style="color:blue">{{ $cell }}</p></td>
+        @else
+          <td>{{ $cell }}</td>
         @endif
+      @endif
     @endforeach
     </tr>
   @endforeach

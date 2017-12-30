@@ -99,8 +99,15 @@ class BookingsController extends Controller
             $date = $date->toDateString();
         }
 
+        // Friends is used to highlight bookings in the table, currently sessions is friends.
+        $friends= [];
+        $sessions = KronoxSession::all();
+        foreach ($sessions as $session) {
+            $friends[] = $session->MdhUsername;
+        }
+
         $sessions = KronoxSession::where('sessionActive', 1)->orderBy('MdhUsername', 'asc')->get();
         $rows = KronoxCommunicator::getAllBookings($date);
-        return view('allbookings', compact(['sessions', 'rows', 'date']));
+        return view('allbookings', compact(['sessions', 'rows', 'date', 'friends']));
     }
 }
