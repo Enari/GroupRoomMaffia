@@ -15,7 +15,7 @@ class KronoxSessionController extends Controller
 
     public function index()
     {
-        $sessions = KronoxSession::orderBy('MdhUsername', 'asc')->paginate(20);
+        $sessions = KronoxSession::orderBy('MdhUsername', 'asc')->get();
         return view('sessions', compact(['sessions']));
     }
 
