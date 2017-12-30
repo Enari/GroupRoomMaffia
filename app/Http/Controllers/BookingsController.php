@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use App\Models\KronoxSession;
+
 use App\Helpers\KronoxCommunicator;
+use App\Models\KronoxSession;
 use App\Models\Booking;
+use App\Models\SchedulledBooking;
 
 
 class BookingsController extends Controller
@@ -25,11 +27,31 @@ class BookingsController extends Controller
             $bookings = array_merge($bookings, KronoxCommunicator::getMyBookings($session->JSESSIONID));
         }
 
+        // Now sort the, so we get them in propper order
+        $collection = collect($bookings);
+        $collection = $collection->sortBy('time');
+        $bookings = $collection->sortBy('date');
+
         return view('bookings', compact(['sessions', 'bookings']));
     }
 
     public function book(Request $request)
     {
+        if(Carbon::parse($request->date)->gt(Carbon::now()->addWeek()))
+        {
+            $booking = new SchedulledBooking;
+            $booking->date = $request->date;
+            $booking->room = $request->room;
+            $booking->time = $request->time;
+            $booking->booker = KronoxSession::where('JSESSIONID', $request->user)->first()->MdhUsername;
+            $booking->message = $request->message;
+            $booking->save();
+
+            flash('The Booking was more than a week out and has been schedulled');
+
+            return redirect(action('BookingsController@index'));
+        }
+
         $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=boka';
         $url = $url . '&datum=' . urlencode(substr($request->date, 2, 8));
         $url = $url . '&id=' . urlencode($request->room);
