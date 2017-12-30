@@ -54,7 +54,7 @@ class KronoxCommunicator
     $dom = new \DOMDocument;
     $dom->loadHTML($html);
 
-    $bookings;
+    $bookings = [];
     foreach ($dom->getElementsByTagName('div') as $div)
     {
 
