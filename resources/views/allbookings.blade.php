@@ -32,9 +32,7 @@
         </tr>
     </thead>
     <tbody>
-@if(empty($rows))
-             <tr><td>Something is fucked up!</td><td></td><td></td><td></td><td></td><td></td></tr>
-@else
+@unless(empty($rows))
   @foreach ($rows as $row)
     <tr>
     @foreach ($row as $i => $cell)
@@ -46,7 +44,7 @@
     @endforeach
     </tr>
   @endforeach
-@endif
+@endunless
     </tbody>
 </table>
 {{-- <div class="pagination-wrapper"> {!! $sessions->render() !!} </div> --}}
