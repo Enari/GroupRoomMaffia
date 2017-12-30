@@ -31,15 +31,22 @@ class BookingsController extends Controller
     public function book(Request $request)
     {
         $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=boka';
-        $url = $url . '&datum=' . substr($request->date, 2, 8);
-        $url = $url . '&id=' . $request->room;
+        $url = $url . '&datum=' . urlencode(substr($request->date, 2, 8));
+        $url = $url . '&id=' . urlencode($request->room);
         $url = $url . '&typ=RESURSER_LOKALER';
-        $url = $url . '&intervall=' . $request->time;
-        $url = $url . '&moment=' . $request->message;
+        $url = $url . '&intervall=' . urlencode($request->time);
+        $url = $url . '&moment=' . (empty($request->message) ? "%20" : urlencode($request->message));
         $url = $url . '&flik=FLIK_0001';
 
         $result = KronoxCommunicator::httpGet($url, $request->user);
-        return redirect(action('BookingsController@index'))->withErrors(array('result' => $result));
+
+        if($result == 'OK'){
+            flash('Sucessfully room ' . $request->room . '!')->success();
+            return redirect(action('BookingsController@index'));
+        }
+
+        flash('Booking failed: ' . $result)->error();
+        return redirect(action('BookingsController@allBookings', ['date' => $request->date]));
     }
 
     public function unBook($booker, $id)
@@ -51,7 +58,14 @@ class BookingsController extends Controller
 
         $result = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
 
-        return redirect(action('BookingsController@index'))->withErrors(array('result' => $result));
+        if($result == 'OK'){
+            flash('Sucessfully unbooked!')->success();
+        }
+        else{
+            flash('Unbooking failed: ' . $result)->error();
+        }
+
+        return redirect(action('BookingsController@index'));
     }
 
     public function allBookings($date = null)

@@ -47,6 +47,9 @@ class KronoxCommunicator
     $url = $url . '&datum=' . substr(Carbon::now(), 2, 8);
 
     $html = KronoxCommunicator::httpGet($url, $JSESSIONID);
+    if(empty($html)){
+      return [];
+    }
 
     $dom = new \DOMDocument;
     $dom->loadHTML($html);
@@ -78,10 +81,18 @@ class KronoxCommunicator
   {
     $session = KronoxSession::where('sessionActive', 1)->first();
 
+    if(empty($session)){
+      flash('No active session found');
+      return [];
+    }
+
     $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=hamtaBokningar&flik=FLIK_0001';
     $url = $url . '&datum=' . substr($date, 2, 8);
 
     $html = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
+    if(empty($html) || $html == 'Din användare har inte rättigheter att skapa resursbokningar.'){
+      return [];
+    }
       
     $dom = new \DOMDocument;
     $dom->loadHTML($html);

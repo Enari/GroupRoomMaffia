@@ -25,16 +25,19 @@ class KronoxSessionController extends Controller
         $result = KronoxCommunicator::httpGet($url, $request->JSESSIONID);
 
         if($result == "INLOGGNING KRÄVS"){
-            return redirect('/sessions')->withErrors(array('message' => 'The supplied JSESSIONID is not logged in.'));
+            flash('The supplied JSESSIONID is not logged in.')->error();
+            return redirect(action('KronoxSessionController@index'));
         }
         
         $newsession = KronoxSession::create(['MdhUsername' => $result, 'JSESSIONID' => $request->JSESSIONID, 'sessionActive' => true]);
         $newsession->save();
-        return redirect('/sessions');
+        flash('Sucess')->success();
+        return redirect(action('KronoxSessionController@index'));
     }
 
     public function delete(kronoxSession $session){
         $session->delete();
-        return redirect('/');
+        flash('Deleted Session');
+        return redirect(action('KronoxSessionController@index'));
     }
 }
