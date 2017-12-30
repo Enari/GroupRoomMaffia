@@ -16,6 +16,7 @@
                             <th> MDH Username </th>
                             <th> JSESSIONID </th>
                             <th> Active </th>
+                            <th> No. Bookings </th>
                             <th> Last poll </th>
                             <th> Actions </th>
                         </tr>
@@ -30,6 +31,7 @@
                             <td>{{ $session->MdhUsername }}</td>
                             <td>{{ $session->JSESSIONID }}</td>
                             <td>{{ $session->sessionActive }}</td>
+                            <td>{{ $session->getNumberOfBookings() }}</td>
                             <td>{{ \Carbon\Carbon::parse($session->updated_at)->diffForHumans() }}</td>
                             <td><a href="{{ action('KronoxSessionController@delete', $session->id) }}">
                             <button type="button" class="btn btn-danger btn-sm" title="Delete">
@@ -40,7 +42,6 @@
 @endif
                     </tbody>
                 </table>
-                <div class="pagination-wrapper"> {!! $sessions->render() !!} </div>
                 </div>
                 {{-- Modal --}}
                 <div class="modal fade" id="addSessionModal" tabindex="-1" role="dialog" aria-hidden="true">

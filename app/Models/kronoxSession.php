@@ -18,6 +18,9 @@ class KronoxSession extends Model
             $this->sessionActive = false;
         }
         $this->save();
+    }
 
+    public function getNumberOfBookings(){
+        return count(KronoxCommunicator::getMyBookings($this->JSESSIONID));
     }
 }
