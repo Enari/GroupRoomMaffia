@@ -6,17 +6,17 @@
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
       <li class="nav-item">
-        <a class="nav-link" href="/">Home</a>
+        <a class="nav-link" href="{{ action('BookingsController@allBookings') }}">Bookings</a>
       </li>
 @auth
       <li class="nav-item">
-        <a class="nav-link" href="{{ action('BookingsController@index') }}">Bookings</a>
+        <a class="nav-link" href="{{ action('BookingsController@index') }}">My Bookings</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Schedulled bookings</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/sessions">Sessions</a>
+        <a class="nav-link" href="{{ action('KronoxSessionController@index') }}">Sessions</a>
       </li>
 @endauth
     </ul>
