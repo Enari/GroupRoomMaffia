@@ -124,6 +124,7 @@ class KronoxCommunicator
       $rows[] = $row;
     }
 
+    $rows = array_reverse($rows); // Get U2 rooms on top!
 
     return $rows;
   }
