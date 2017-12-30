@@ -13,7 +13,7 @@
         <a class="nav-link" href="{{ action('BookingsController@index') }}">My Bookings</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Schedulled bookings</a>
+        <a class="nav-link" href="{{ action('SchedulledBookingsController@index') }}">Schedulled bookings</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="{{ action('KronoxSessionController@index') }}">Sessions</a>
