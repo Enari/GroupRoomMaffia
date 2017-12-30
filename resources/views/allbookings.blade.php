@@ -72,7 +72,7 @@
               <option>No active sessions</option>
 @else
   @foreach ($sessions as $session)
-    <option value="{{ $session->JSESSIONID }}">{{ $session->MdhUsername}}</option>
+    <option value="{{ $session->JSESSIONID }}">{{ $session->MdhUsername}} ({{ $session->getNumberOfBookings()}}/8)</option>
   @endforeach
 @endif
             </select>
