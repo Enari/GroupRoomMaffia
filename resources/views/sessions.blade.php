@@ -1,8 +1,14 @@
 @extends('layouts.master')
 @section('title', 'Group Room Maffia')
 @section('content')
-                <h1>Sessions</h1>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSessionModal" title="Add Category">Add</button>
+<div class="row mb-2 ">
+    <div class="col-sm-4 mr-auto">
+        <h1>Sessions</h1>
+    </div>
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSessionModal" title="Add Category">Add</button>
+    </div>
+</div>
                 <div class="table">
                 <table class="table table-bordered table-striped table-hover table-fixed">
                     <thead>

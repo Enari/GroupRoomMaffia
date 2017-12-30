@@ -4,8 +4,14 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet">
 @endsection
 @section('content')
-<h1>Bookings</h1>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSessionModal" title="Add Category">Add</button>
+<div class="row mb-2 ">
+    <div class="col-sm-4 mr-auto">
+      <h1>My Bookings</h1>
+    </div>
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addSessionModal" title="Add Category">Add</button>
+    </div>
+</div>
 <div class="table">
 <table class="table table-bordered table-striped table-hover table-fixed">
     <thead>
