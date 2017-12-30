@@ -9,6 +9,7 @@
         @include('layouts.subviews.navbar')
         <div class="container">
             @include('layouts.subviews.errors')
+            @include('flash::message')
             @yield('content')
         </div>
         @include('layouts.subviews.footer')
