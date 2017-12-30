@@ -177,6 +177,9 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        //for flashing alearts
+        Laracasts\Flash\FlashServiceProvider::class,
+
     ],
 
     /*
