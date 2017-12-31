@@ -37,7 +37,7 @@ class Kernel extends ConsoleKernel
         })->everyFifteenMinutes();
 
         $schedule->call(function () {
-            $toBook = SchedulledBooking::where('date', Carbon::now()->addWeek()->toDateString())->get();
+            $toBook = SchedulledBooking::where('date', Carbon::now('Europe/Stockholm')->addWeek()->toDateString())->get();
             foreach($toBook as $booking)
             {
                 $booking->book();
