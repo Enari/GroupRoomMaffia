@@ -5,10 +5,10 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
     <ul class="navbar-nav mr-auto">
+@auth
       <li class="nav-item">
         <a class="nav-link" href="{{ action('BookingsController@allBookings') }}">Bookings</a>
       </li>
-@auth
       <li class="nav-item">
         <a class="nav-link" href="{{ action('BookingsController@index') }}">My Bookings</a>
       </li>
