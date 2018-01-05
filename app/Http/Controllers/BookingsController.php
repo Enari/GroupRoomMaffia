@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 
 use App\Helpers\KronoxCommunicator;
@@ -47,6 +49,7 @@ class BookingsController extends Controller
             $booking->time = $request->time;
             $booking->booker = KronoxSession::where('JSESSIONID', $request->user)->first()->MdhUsername;
             $booking->message = $request->message;
+            $booking->user = Auth::user()->username;
             $booking->save();
 
             flash('The Booking was more than a week out and has been schedulled');
