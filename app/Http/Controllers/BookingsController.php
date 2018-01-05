@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Redirect;
 use Carbon\Carbon;
 
 use App\Helpers\KronoxCommunicator;
@@ -37,6 +38,7 @@ class BookingsController extends Controller
 
     public function book(Request $request)
     {
+        // Schedulle booking if more than a week out
         if(Carbon::parse($request->date)->gt(Carbon::now()->addWeek()))
         {
             $booking = new SchedulledBooking;
@@ -49,7 +51,7 @@ class BookingsController extends Controller
 
             flash('The Booking was more than a week out and has been schedulled');
 
-            return redirect(action('BookingsController@index'));
+            return Redirect::back();
         }
 
         $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=boka';
@@ -64,11 +66,12 @@ class BookingsController extends Controller
 
         if($result == 'OK'){
             flash('Sucessfully room ' . $request->room . '!')->success();
-            return redirect(action('BookingsController@index'));
+        }
+        else{
+        flash('Booking failed: ' . $result)->error();
         }
 
-        flash('Booking failed: ' . $result)->error();
-        return redirect(action('BookingsController@allBookings', ['date' => $request->date]));
+        return Redirect::back();
     }
 
     public function unBook($booker, $id)
