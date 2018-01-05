@@ -22,7 +22,8 @@ class CreateSchedulledBookingsTable extends Migration
             $table->string('room');
             $table->string('message')->nullable()->default(NULL);
             $table->text('result')->nullable()->default(NULL);
-            $table->string('user')->nullable()->default(NULL);                
+            $table->string('user')->nullable()->default(NULL);
+            $table->boolean('recurring')->default(false);                     
             $table->timestamps();
         });
     }

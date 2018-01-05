@@ -17,6 +17,7 @@
             <th>Room</th>
             <th>Booker</th>
             <th>Message</th>
+            <th>Recurring</th>
             <th>Result</th>
             <th>Actions</th>
         </tr>
@@ -32,6 +33,7 @@
       <td>{{ $booking->room }}</td>
       <td>{{ $booking->booker }}</td>
       <td>{{ $booking->message }}</td>
+      <td><input type="checkbox" {{ $booking->recurring ? "checked" : ""}}></label></td>
       <td>{{ $booking->result }}</td>
       <td>
         <a href="{{ action('SchedulledBookingsController@delete', $booking->id) }}">
