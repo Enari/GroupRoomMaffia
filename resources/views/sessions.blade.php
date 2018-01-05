@@ -29,7 +29,7 @@
 @foreach($sessions as $session)
                         <tr>
                             <td>{{ $session->MdhUsername }}</td>
-                            <td>{{ $session->JSESSIONID }}</td>
+                            <td><samp>{{ $session->JSESSIONID }}</samp></td>
                             <td>{{ $session->sessionActive }}</td>
                             <td>{{ $session->getNumberOfBookings() }}</td>
                             <td>{{ \Carbon\Carbon::parse($session->updated_at)->diffForHumans() }}</td>
