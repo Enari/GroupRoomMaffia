@@ -29,7 +29,7 @@
   @foreach ($bookings as $booking)
     <tr>
       <td>{{ $booking->date }}</td>
-      <td>{{ $booking->time }}</td>
+      <td>{{ HelperFunctions::bookingIntervallToTime($booking->time) }}</td>
       <td>{{ $booking->room }}</td>
       <td>{{ $booking->booker }}</td>
       <td>{{ $booking->message }}</td>
