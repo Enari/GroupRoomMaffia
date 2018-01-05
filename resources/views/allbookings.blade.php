@@ -40,7 +40,7 @@
         <td><a href="#" style="color: #00f000;" data-toggle="modal" data-target="#BookingModal" data-room="{{ $row[0] }}" data-time="{{ $i-1 }}">Free</a></td>
       @else
         @if(in_array($cell, $friends))
-          <td><p style="color:blue">{{ $cell }}</p></td>
+          <td><div style="color:blue">{{ $cell }}</div></td>
         @else
           <td>{{ $cell }}</td>
         @endif
