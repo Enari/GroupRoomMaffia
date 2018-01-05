@@ -23,8 +23,8 @@
         </tr>
     </thead>
     <tbody>
-@if(empty($bookings))
-             <tr><td>No schedulled bookings</td><td></td><td></td><td></td><td></td><td></td></tr>
+@if($bookings->count() == 0)
+             <tr><td>No schedulled bookings</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
 @else
   @foreach ($bookings as $booking)
     <tr>
