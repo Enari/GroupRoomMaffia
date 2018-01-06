@@ -16,13 +16,7 @@
           <div class="form-group">
             <label for="user">User:</label>
             <select class="form-control" id="user" name="user" {{ ($sessions->count() == 0) ? ' disabled' : ''}}>
-@if($sessions->count() == 0)
-              <option>No active sessions</option>
-@else
-  @foreach ($sessions as $session)
-    <option value="{{ $session->JSESSIONID }}">{{ $session->MdhUsername}} ({{ $session->getNumberOfBookings()}}/8)</option>
-  @endforeach
-@endif
+              <option>Loading sessions...</option>
             </select>
           </div>
           <div class="form-group date">
@@ -77,5 +71,24 @@
       autoclose: true,
       todayHighlight: true
   });
+  </script>
+  {{-- Script for adding active sessions to modal --}}
+  <script type="text/javascript">
+    $('#newBookingModal').on('show.bs.modal', function (event) {
+      var modal = $(this);
+      var userSelector = $(modal.find('.modal-body #user'));
+      $.getJSON('{{action('KronoxSessionController@getActiveSessionsMdhUsernameAndNumberOfBookings')}}', function (sessions) {
+        userSelector.empty();
+        if(sessions.length == 0){
+          userSelector.attr("disabled", true);
+         userSelector.append($('<option>').text("No Active Sessions"));
+        }
+        $.each(sessions, function(key, session){
+          userSelector.append($('<option>', { value : session.JSESSIONID })
+            .text(session.MdhUsername + " (" + session.numberOfBookings + "/8)"));
+        });
+        //console.log(data);
+      });
+    })
   </script>
 @endpush

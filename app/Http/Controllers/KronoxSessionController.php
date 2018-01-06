@@ -57,7 +57,11 @@ class KronoxSessionController extends Controller
         $usernamesAndBookings = [];
 
         foreach($sessions as $session) {
-            $usernamesAndBookings[] = ['MdhUsername' => $session->MdhUsername, 'numberOfBookings' => $session->getNumberOfBookings()];
+            $usernamesAndBookings[] = [
+                'MdhUsername' => $session->MdhUsername, 
+                'numberOfBookings' => $session->getNumberOfBookings(),
+                'JSESSIONID' => $session->JSESSIONID,
+            ];
         }
         return $usernamesAndBookings;
     }
