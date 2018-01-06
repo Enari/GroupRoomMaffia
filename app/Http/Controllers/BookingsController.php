@@ -23,7 +23,7 @@ class BookingsController extends Controller
 
     public function index()
     {
-        $sessions = KronoxSession::where('sessionActive', 1)->orderBy('MdhUsername', 'asc')->get();
+        $sessions = KronoxSession::where(['user' => Auth::user()->username, 'sessionActive' => 1])->orderBy('MdhUsername', 'asc')->get();
         $bookings = [];
 
         foreach ($sessions as $session) {
@@ -79,7 +79,7 @@ class BookingsController extends Controller
 
     public function unBook($booker, $id)
     {
-        $session = KronoxSession::where(['sessionActive' => 1, 'MdhUsername' => $booker])->first();
+        $session = KronoxSession::where(['user' => Auth::user()->username, 'sessionActive' => 1, 'MdhUsername' => $booker])->first();
 
         $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=avboka';
         $url = $url . '&bokningsId=' . $id;

@@ -2,6 +2,8 @@
 
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\Auth;
+
 use Carbon\Carbon;
 
 use App\Models\Booking;
@@ -79,7 +81,7 @@ class KronoxCommunicator
 
   public static function getAllBookings($date)
   {
-    $session = KronoxSession::where('sessionActive', 1)->first();
+    $session = KronoxSession::where(['user' => Auth::user()->username, 'sessionActive' => 1])->first();
 
     if(empty($session)){
       flash('No active session found');
