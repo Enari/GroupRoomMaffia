@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 use App\Models\SchedulledBooking;
-use App\Models\KronoxSession;
 
 class SchedulledBookingsController extends Controller
 {
@@ -18,8 +17,7 @@ class SchedulledBookingsController extends Controller
     public function index()
     {
         $bookings = SchedulledBooking::where(['user' => Auth::user()->username])->get();
-        $sessions = KronoxSession::where('sessionActive', 1)->orderBy('MdhUsername', 'asc')->get();
-        return view('schedulledbookings', compact(['bookings', 'sessions']));
+        return view('schedulledbookings', compact(['bookings']));
     }
 
     public function delete(SchedulledBooking $booking)

@@ -15,7 +15,7 @@
         <form id="newBookingForm" method="post" action="{{ action('BookingsController@book') }}">
           <div class="form-group">
             <label for="user">User:</label>
-            <select class="form-control" id="user" name="user" {{ ($sessions->count() == 0) ? ' disabled' : ''}}>
+            <select class="form-control" id="user" name="user">
               <option>Loading sessions...</option>
             </select>
           </div>
