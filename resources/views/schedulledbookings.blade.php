@@ -1,11 +1,13 @@
 @extends('layouts.master')
+@include('modals.newBooking')
 @section('title', 'Group Room Maffia')
-@section('header')
-@endsection
 @section('content')
 <div class="row mb-2 ">
     <div class="col-sm-6 mr-auto">
       <h1>Schedulled Bookings</h1>
+    </div>
+    <div class="col-sm-1">
+      <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#newBookingModal" title="Add Category">Add</button>
     </div>
 </div>
 <div class="table">
