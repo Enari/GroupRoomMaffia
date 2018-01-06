@@ -12,7 +12,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form id="newBookingForm" method="post">
+        <form id="newBookingForm" method="post" action="{{ action('BookingsController@book') }}">
           <div class="form-group">
             <label for="user">User:</label>
             <select class="form-control" id="user" name="user" {{ ($sessions->count() == 0) ? ' disabled' : ''}}>
