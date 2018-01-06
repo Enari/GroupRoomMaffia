@@ -73,4 +73,17 @@
     todayHighlight: true
 });
 </script>
+<script type="text/javascript">
+  $('#newBookingModal').on('show.bs.modal', function (event) {
+  var link = $(event.relatedTarget) // Button that triggered the modal
+  var room = link.data('room') // Extract info from data-* attributes
+  var time = link.data('time')
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  modal.find('.modal-body #time').val(time)
+  modal.find('.modal-body #room').val(room)
+  modal.find('.modal-body #date').val('{{$date}}')
+})
+</script>
 @endpush
