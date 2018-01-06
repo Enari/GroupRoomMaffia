@@ -23,7 +23,7 @@
                     </thead>
                     <tbody>
 @if ($sessions->count() == 0)
-                        <tr><td colspan="5">There are no sessions</td></tr>
+                        <tr><td colspan="6">There are no sessions</td></tr>
 @else
 {{-- var_dump($sessions) --}}
 @foreach($sessions as $session)
