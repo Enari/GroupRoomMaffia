@@ -52,4 +52,13 @@ class KronoxSessionController extends Controller
 
     public function getActiveSessionsMdhUsernameAndNumberOfBookings()
     {
+        $sessions = KronoxSession::where(['user' => Auth::user()->username, 'sessionActive' => 1])->orderBy('MdhUsername', 'asc')->get();
+
+        $usernamesAndBookings = [];
+
+        foreach($sessions as $session) {
+            $usernamesAndBookings[] = ['MdhUsername' => $session->MdhUsername, 'numberOfBookings' => $session->getNumberOfBookings()];
+        }
+        return $usernamesAndBookings;
+    }
 }
