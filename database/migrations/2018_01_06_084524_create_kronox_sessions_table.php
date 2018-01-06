@@ -13,11 +13,13 @@ class CreateKronoxSessionsTable extends Migration
      */
     public function up()
     {
+        Schema::dropIfExists('kronox_sessions');
         Schema::create('kronox_sessions', function (Blueprint $table) {
             $table->increments('id');
             $table->string('JSESSIONID');
             $table->string('MdhUsername');
             $table->boolean('sessionActive');
+            $table->string('user'); // User of this app who "owns" the session
             $table->timestamps();
         });
     }

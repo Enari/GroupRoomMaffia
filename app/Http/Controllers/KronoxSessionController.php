@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 use App\Models\KronoxSession;
 use App\Helpers\KronoxCommunicator;
 
@@ -15,7 +17,7 @@ class KronoxSessionController extends Controller
 
     public function index()
     {
-        $sessions = KronoxSession::orderBy('MdhUsername', 'asc')->get();
+        $sessions = KronoxSession::where('user', Auth::user()->username)->orderBy('MdhUsername', 'asc')->get();
         return view('sessions', compact(['sessions']));
     }
 
@@ -29,15 +31,25 @@ class KronoxSessionController extends Controller
             return redirect(action('KronoxSessionController@index'));
         }
         
-        $newsession = KronoxSession::create(['MdhUsername' => $result, 'JSESSIONID' => $request->JSESSIONID, 'sessionActive' => true]);
+        $newsession = KronoxSession::create([
+            'MdhUsername' => $result, 
+            'JSESSIONID' => $request->JSESSIONID, 
+            'sessionActive' => true, 
+            'user' => Auth::user()->username,
+        ]);
+
         $newsession->save();
         flash('Sucess')->success();
         return redirect(action('KronoxSessionController@index'));
     }
 
-    public function delete(kronoxSession $session){
+    public function delete(kronoxSession $session)
+    {
         $session->delete();
         flash('Deleted Session');
         return redirect(action('KronoxSessionController@index'));
     }
+
+    public function getActiveSessionsMdhUsernameAndNumberOfBookings()
+    {
 }

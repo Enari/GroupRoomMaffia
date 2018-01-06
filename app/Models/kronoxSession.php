@@ -7,7 +7,7 @@ use App\Helpers\KronoxCommunicator;
 
 class KronoxSession extends Model
 {
-    protected $fillable = ['MdhUsername', 'JSESSIONID', 'sessionActive'];
+    protected $fillable = ['MdhUsername', 'JSESSIONID', 'sessionActive', 'user'];
 
     public function poll(){
         $url = 'https://webbschema.mdh.se/ajax/ajax_session.jsp?op=poll';
