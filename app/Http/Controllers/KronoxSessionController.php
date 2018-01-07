@@ -45,8 +45,16 @@ class KronoxSessionController extends Controller
 
     public function delete(kronoxSession $session)
     {
-        $session->delete();
-        flash('Deleted Session');
+        if($session->user == Auth::user()->username)
+        {
+            $session->delete();
+            flash('Deleted Session');
+        }
+        else
+        {
+            flash('Error');
+        }
+
         return redirect(action('KronoxSessionController@index'));
     }
 
