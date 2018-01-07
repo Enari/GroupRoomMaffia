@@ -18,6 +18,9 @@
       <li class="nav-item">
         <a class="nav-link" href="{{ action('KronoxSessionController@index') }}">Sessions</a>
       </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{{ action('FriendsController@index') }}">Friends</a>
+      </li>
 @endauth
     </ul>
     <ul class="navbar-nav">

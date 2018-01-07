@@ -20,10 +20,15 @@ Route::get('/login', 'Auth\LoginController@index')->name('login');
 Route::post('/login', 'Auth\LoginController@login');
 Route::get('/logout', 'Auth\LoginController@logout');
 
-// Session
+// Sessions
 Route::get('/sessions', 'KronoxSessionController@index');
 Route::get('/sessions/delete/{session}', 'KronoxSessionController@delete');
 Route::post('/sessions', 'KronoxSessionController@add');
+
+// Friends
+Route::get('/friends', 'FriendsController@index');
+Route::post('/friends', 'FriendsController@add');
+Route::get('/firends/delete/{friend}', 'FriendsController@delete');
 
 // Bookings
 Route::get('/mybookings', 'BookingsController@index');
