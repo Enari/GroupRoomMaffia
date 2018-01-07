@@ -25,8 +25,8 @@
         </tr>
     </thead>
     <tbody>
-@if($bookings->count() == 0)
-             <tr><td>No schedulled bookings</td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+@if($bookings->isEmpty())
+             <tr><td colspan="8">No schedulled bookings</td></tr>
 @else
   @foreach ($bookings as $booking)
     <tr>

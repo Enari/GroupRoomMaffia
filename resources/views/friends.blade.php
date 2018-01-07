@@ -20,7 +20,7 @@
     </tr>
   </thead>
   <tbody>
-@if ($friends->count() == 0)
+@if ($friends->isEmpty())
     <tr><td colspan="4">You have no friends</td></tr>
 @else
 @foreach($friends as $friend)

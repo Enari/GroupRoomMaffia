@@ -22,7 +22,7 @@
                         </tr>
                     </thead>
                     <tbody>
-@if ($sessions->count() == 0)
+@if ($sessions->isEmpty())
                         <tr><td colspan="6">There are no sessions</td></tr>
 @else
 {{-- var_dump($sessions) --}}

@@ -23,7 +23,7 @@
         </tr>
     </thead>
     <tbody>
-@if($bookings->count() == 0)
+@if($bookings->isEmpty())
              <tr><td>No bookings for any of the active sessions</td><td></td><td></td><td></td><td></td><td></td></tr>
 @else
   @foreach ($bookings as $booking)
