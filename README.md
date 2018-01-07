@@ -15,11 +15,15 @@ It comunicates to MDH's booking server using HTTP requests to thir website.
 ###### Using
 * https://github.com/indrimuska/jquery-editable-select
 * https://github.com/uxsolutions/bootstrap-datepicker
+* https://github.com/laracasts/flash
 
 ## Functionalty
 It's still a work in progress and currently provides equal functionality to mdh's website as well as the following:
 * Abillity to unbook started bookings.
-* Multiple MDH users
+* Multiple users where each user can have multiple MDH session
+* Session are kept alive 
 * Schedulle bookings that are more than a week away
+* Add friends
+* Hilight your and your frinds bookings.
   
 ![alt text](https://i.imgur.com/uh8wl9x.png)
