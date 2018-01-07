@@ -12,6 +12,7 @@ use App\Helpers\KronoxCommunicator;
 use App\Models\KronoxSession;
 use App\Models\Booking;
 use App\Models\SchedulledBooking;
+use App\Models\Friend;
 
 
 class BookingsController extends Controller
@@ -105,15 +106,17 @@ class BookingsController extends Controller
             $date = $date->toDateString();
         }
 
-        // Friends is used to highlight bookings in the table, currently sessions is friends.
-        $friends= [];
-        $sessions = KronoxSession::all();
+        // Friends is used to highlight bookings in the table.
+        $friends = Friend::where('user', Auth::user()->username)->get();
+
+        // Append the users session as we want to hilight them as well.
+        $sessions = KronoxSession::where('user', Auth::user()->username)->get();
         foreach ($sessions as $session) {
-            $friends[] = $session->MdhUsername;
+            $friend = Friend::firstOrNew(['name' => $session->MdhUsername, 'color' => 'blue']);
+            $friends->push($friend);
         }
 
-        $sessions = KronoxSession::where('sessionActive', 1)->orderBy('MdhUsername', 'asc')->get();
         $rows = KronoxCommunicator::getAllBookings($date);
-        return view('allbookings', compact(['sessions', 'rows', 'date', 'friends']));
+        return view('allbookings', compact(['rows', 'date', 'friends']));
     }
 }
