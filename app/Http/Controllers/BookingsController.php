@@ -32,10 +32,15 @@ class BookingsController extends Controller
         }
 
         // Now sort the, so we get them in propper order
-        $collection = collect($bookings);
-        $collection = $collection->sortBy('time');
-        $bookings = $collection->sortBy('date');
+        // To achive fake "two column sort" date is concatinated with time
+        uasort($bookings, (function ($a, $b) {
+            if (($a->date . $a->time) == ($b->date . $b->time)) {
+                return 0;
+            }
+            return (($a->date . $a->time) < ($b->date . $b->time)) ? -1 : 1;
+        }));
 
+        $bookings = collect($bookings);
         return view('bookings', compact(['sessions', 'bookings']));
     }
 
