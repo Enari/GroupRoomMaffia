@@ -34,14 +34,16 @@
   @foreach ($rows as $row)
     <tr>
     @foreach ($row as $i => $cell)
-      @if($cell == "Free")
-        <td><a href="#" style="color: #00f000;" data-toggle="modal" data-target="#newBookingModal" data-room="{{ $row[0] }}" data-time="{{ $i-1 }}">Free</a></td>
+      @if($cell["text"] == "Free")
+        <td><div class="text-center"><a href="#" style="color: #00f000;" data-toggle="modal" data-target="#newBookingModal" data-room="{{ $row[0]["text"] }}" data-time="{{ $i-1 }}">Free</a></div></td>
       @else
-        @if($friends->firstWhere('mdhUsername', $cell) != NULL)
-          <td><div class="text-center text-white" style="border-radius: 5px; background-color: {{ $friends->firstWhere('mdhUsername', $cell)->color }}">{{ $cell }}</div></td>
+          <td data-container="body" data-toggle="popover" data-placement="top" data-content="{{ array_key_exists("toltip", $cell) ?  $cell["toltip"] : '' }}">
+        @if($friends->firstWhere('mdhUsername', $cell["text"]) != NULL)
+            <div class="text-center text-white" style="border-radius: 5px; background-color: {{ $friends->firstWhere('mdhUsername', $cell["text"])->color }}">{{ $cell["text"] }}</div>
         @else
-          <td>{{ $cell }}</td>
+          <div class="text-center">{{ $cell["text"] }}</div>
         @endif
+          </td>
       @endif
     @endforeach
     </tr>
@@ -54,6 +56,11 @@
 @endsection
 @push('scripts')
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+<script>
+$(document).ready(function(){
+  $('[data-toggle="popover"]').popover({trigger: 'hover'})
+});
+</script>
 <script type="text/javascript">
 
   $todaysDate = new Date()

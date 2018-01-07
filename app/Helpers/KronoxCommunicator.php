@@ -95,6 +95,9 @@ class KronoxCommunicator
     if(empty($html) || $html == 'Din användare har inte rättigheter att skapa resursbokningar.'){
       return [];
     }
+
+    // to work with åäö and stuff
+    $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
       
     $dom = new \DOMDocument;
     $dom->loadHTML($html);
@@ -111,16 +114,20 @@ class KronoxCommunicator
 
       foreach ($tableRow->getElementsByTagName('td') as $cell) {
         if($cell->getAttribute('class') == "grupprum-kolumn"){
-          $row[] = KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('b')->item(0));
+          $text = KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('b')->item(0));
+          $toltip = KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('small')->item(0));
+          $row[] = ['text' => $text, 'toltip' => $toltip];
         }
         elseif( strpos($cell->getAttribute('class'), 'grupprum-upptagen') !== false){
-          $row[] = substr(trim(KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('center')->item(0)), "\t\n\r"), 0 , -3); //Don't ask, magic!
+          $text = substr(trim(KronoxCommunicator::DOMinnerHTML($cell->getElementsByTagName('center')->item(0)), "\t\n\r"), 0 , -3); //Don't ask, magic!
+          $toltip = $cell->getAttribute('title');
+          $row[] = ['text' => $text, 'toltip' => $toltip];
         }
         elseif ( $cell->getAttribute('class') == "grupprum-ledig grupprum-kolumn" ) {
-          $row[] = 'Free';
+          $row[] = ['text' => 'Free'];
         }
         elseif ( $cell->getAttribute('class') == "grupprum-passerad grupprum-kolumn" ) {
-          $row[] = '';
+          $row[] = ['text' => ''];
         }
       }
       $rows[] = $row;
