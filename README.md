@@ -12,6 +12,9 @@ I originally created a command line tool in Swift to book and schedulle bookings
 The webpage is build using Laravel 5.5 and Bootstrap v4. It's hosted using a VPS from DigitalOcean whit cert from LetsEncrypt.
 It comunicates to MDH's booking server using HTTP requests to thir website.
 
+###### Using
+* https://github.com/indrimuska/jquery-editable-select
+* https://github.com/uxsolutions/bootstrap-datepicker
 
 ## Functionalty
 It's still a work in progress and currently provides equal functionality to mdh's website as well as the following:

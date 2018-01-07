@@ -1,5 +1,6 @@
 @push('css')
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/css/bootstrap-datepicker3.css" rel="stylesheet">
+<link href="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.css" rel="stylesheet">
 @endpush
 @push('modals')
 <div class="modal fade" id="newBookingModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -41,7 +42,11 @@
           </div>
           <div class="form-group">
             <label for="room" class="col-form-label">Room:</label>
-            <input type="text" class="form-control" id="room" name="room" value="U2-271"></input>
+            <select class="form-control" id="room" name="room">
+              @foreach(\App\Helpers\HelperFunctions::rooms() as $room)
+                <option{{$room == 'U2-271' ? ' selected' : ''}}>{{$room}}</option>
+              @endforeach
+            </select>
           </div>
           <div class="form-group">
             <label for="message" class="col-form-label">Message:</label>
@@ -59,6 +64,10 @@
 @endpush
 @push('scripts')
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.js"></script>
+  <script src="//rawgithub.com/indrimuska/jquery-editable-select/master/dist/jquery-editable-select.min.js"></script>
+  <script type="text/javascript">
+    $('#newBookingForm #room').editableSelect({ effects: 'slide' });
+  </script>
   <script type="text/javascript">
     $todaysDate = new Date()
     $todaysDate = $todaysDate.toISOString().slice(0,10)
