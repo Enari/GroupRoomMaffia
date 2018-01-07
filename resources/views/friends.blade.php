@@ -14,19 +14,21 @@
   <thead>
     <tr>
       <th> Friend </th>
+      <th> MDH Username </th>
       <th> Color </th>
       <th> Actions </th>
     </tr>
   </thead>
   <tbody>
 @if ($friends->count() == 0)
-    <tr><td colspan="3">You have no friends</td></tr>
+    <tr><td colspan="4">You have no friends</td></tr>
 @else
 @foreach($friends as $friend)
     <tr>
       <td>{{ $friend->name }}</td>
+      <td>{{ $friend->mdhUsername }}</td>
       <td><samp>{{ $friend->color }}</samp></td>
-      <td><a href="#{{-- action('FriendsControlle@delete', $friend->id) --}}">
+      <td><a href="{{ action('FriendsController@delete', $friend->id) }}">
       <button type="button" class="btn btn-danger btn-sm" title="Delete">
       <span class="fa fa-trash" aria-hidden="true"/>
       </button></a></td>
@@ -54,7 +56,11 @@
         <input type="text" class="form-control" id="name" name="name"></input>
       </div>
       <div class="form-group">
-        <label for="color" class="col-form-label">color:</label>
+        <label for="mdhUsername" class="col-form-label">MDH Username:</label>
+        <input type="text" class="form-control" id="mdhUsername" name="mdhUsername"></input>
+      </div>
+      <div class="form-group">
+        <label for="color" class="col-form-label">Color:</label>
         <input type="text" class="form-control" id="color" name="color"></input>
       </div>
     </form>

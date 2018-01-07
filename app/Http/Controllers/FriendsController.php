@@ -22,7 +22,12 @@ class FriendsController extends Controller
 
   public function add(Request $request)
   {
-    Friend::create(['user' => Auth::user()->username, 'name' => $request->name, 'color' => $request->color]);
+    Friend::create([
+      'user' => Auth::user()->username, 
+      'name' => $request->name, 
+      'mdhUsername' => $request->mdhUsername,
+      'color' => $request->color,
+    ]);
     return redirect(action('FriendsController@index'));
   }
 
@@ -36,7 +41,8 @@ class FriendsController extends Controller
     else
     {
       flash('Error');
-      return redirect(action('FriendsController@index'));
     }
+
+    return redirect(action('FriendsController@index'));
   }
 }

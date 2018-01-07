@@ -18,6 +18,7 @@ class CreateFriendsTable extends Migration
             $table->increments('id');
             $table->String('user');
             $table->String('name');
+            $table->String('mdhUsername');
             $table->String('color');
             $table->timestamps();
         });

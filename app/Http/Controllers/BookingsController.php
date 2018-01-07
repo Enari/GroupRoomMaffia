@@ -112,7 +112,7 @@ class BookingsController extends Controller
         // Append the users session as we want to hilight them as well.
         $sessions = KronoxSession::where('user', Auth::user()->username)->get();
         foreach ($sessions as $session) {
-            $friend = Friend::firstOrNew(['name' => $session->MdhUsername, 'color' => 'blue']);
+            $friend = Friend::firstOrNew(['mdhUsername' => $session->MdhUsername, 'color' => 'blue']);
             $friends->push($friend);
         }
 

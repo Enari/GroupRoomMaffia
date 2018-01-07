@@ -37,8 +37,8 @@
       @if($cell == "Free")
         <td><a href="#" style="color: #00f000;" data-toggle="modal" data-target="#newBookingModal" data-room="{{ $row[0] }}" data-time="{{ $i-1 }}">Free</a></td>
       @else
-        @if($friends->firstWhere('name', $cell) != NULL)
-          <td><div class="text-center text-white" style="border-radius: 5px; background-color: {{ $friends->firstWhere('name', $cell)->color }}">{{ $cell }}</div></td>
+        @if($friends->firstWhere('mdhUsername', $cell) != NULL)
+          <td><div class="text-center text-white" style="border-radius: 5px; background-color: {{ $friends->firstWhere('mdhUsername', $cell)->color }}">{{ $cell }}</div></td>
         @else
           <td>{{ $cell }}</td>
         @endif
