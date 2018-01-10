@@ -97,16 +97,19 @@ class KronoxCommunicator
     }
 
     // to work with åäö and stuff
-    $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");
-      
+    $html = mb_convert_encoding($html, 'HTML-ENTITIES', "UTF-8");      
     $dom = new \DOMDocument;
-    $dom->loadHTML($html);
+
+    try{
+      $dom->loadHTML($html);
+    }
+    catch(\Exception $e){
+      flash('<b>Warning!</b> Exeption while parsing HTML. The bookings shown might be incorrect')->warning()->important();
+    }
 
     $rows;
-
     $headerRow = $dom->getElementsByTagName('tr')->item(0);
     $dom->getElementsByTagName('tr')->item(0)->parentNode->removeChild($headerRow );
-
 
     foreach ($dom->getElementsByTagName('tr') as $tableRow)
     {
