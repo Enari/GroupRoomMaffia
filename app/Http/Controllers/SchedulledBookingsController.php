@@ -16,7 +16,7 @@ class SchedulledBookingsController extends Controller
 
     public function index()
     {
-        $bookings = SchedulledBooking::where(['user' => Auth::user()->username])->get();
+        $bookings = SchedulledBooking::where(['user' => Auth::user()->username])->orderBy('date', 'ASC')->orderBy('time', 'ASC')->get();
         return view('schedulledbookings', compact(['bookings']));
     }
 
