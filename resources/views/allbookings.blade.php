@@ -40,6 +40,9 @@
           <td data-container="body" data-toggle="popover" data-placement="top" data-content="{{ array_key_exists("toltip", $cell) ?  $cell["toltip"] : '' }}">
         @if($friends->firstWhere('mdhUsername', $cell["text"]) != NULL)
             <div class="text-center text-white" style="border-radius: 5px; background-color: {{ $friends->firstWhere('mdhUsername', $cell["text"])->color }}">{{ $cell["text"] }}</div>
+        {{-- If it's a teacher who made the booking make the name red. --}}
+        @elseif(strlen($cell["text"]) == 5) 
+          <div class="text-center style="color:red;">{{ $cell["text"] }}</div>
         @else
           <div class="text-center">{{ $cell["text"] }}</div>
         @endif
@@ -51,7 +54,6 @@
 @endunless
     </tbody>
 </table>
-{{-- <div class="pagination-wrapper"> {!! $sessions->render() !!} </div> --}}
 </div>
 @endsection
 @push('scripts')

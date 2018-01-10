@@ -87,15 +87,13 @@ class BookingsController extends Controller
     {
         $session = KronoxSession::where(['user' => Auth::user()->username, 'sessionActive' => 1, 'MdhUsername' => $booker])->first();
 
-        $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=avboka';
-        $url = $url . '&bokningsId=' . $id;
-
+        $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=avboka&bokningsId=' . $id;
         $result = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
 
         if($result == 'OK'){
             flash('Sucessfully unbooked!')->success();
         }
-        else{
+        else {
             flash('Unbooking failed: ' . $result)->error();
         }
 
