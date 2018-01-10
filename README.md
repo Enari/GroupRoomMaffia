@@ -27,3 +27,39 @@ It's still a work in progress and currently provides equal functionality to mdh'
 * Hilight your and your frinds bookings.
   
 ![alt text](https://i.imgur.com/uh8wl9x.png)
+
+# Instalation
+
+### Requirements
+* PHP >= 7.1
+* Composer
+
+## Steps
+1. Clone the repo and install dependencies
+```bash
+cd /var/www/
+git clone https://github.com/Enari/GroupRoomMaffia.git
+cd GroupRoomMaffia/
+composer install
+```
+
+3. Copy `env.example` to `.env` and generate an application key. 
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+4. Edit the `.env` file with your enviorment comfiguration.
+
+5. Migrate the database
+```bash
+php artisan migrate
+```
+
+7. Enable automatic polling of "MDH users sessions" by calling `php artisan schedule:run` using chron.
+```
+ sudo crontab -e
+*  *    * * *  php /var/www/DVA313/kanbanboard/artisan schedule:run >> /dev/null 2>&1
+```
+
+8. Point you webserver to `GroupRoomMaffia/public`, note that mod_rewrite needs to be enabled.
