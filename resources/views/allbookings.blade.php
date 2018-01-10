@@ -3,11 +3,11 @@
 @section('title', 'Group Room Maffia')
 @section('content')
 <div class="row mb-2 ">
-    <div class="col-sm-4 mr-auto"><h1>All Bookings</h1></div>
+    <div class="col-sm-6 mr-auto"><h1>All Bookings</h1></div>
     <div class="col-sm-1">
       <label for="date" class="col-form-label">Date:</label>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-3">
       <div class="input-group date">
         <input type="text" class="form-control" onchange="window.location.replace('{{ action('BookingsController@allBookings') }}/' + this.value)" id="date" name="date" value="{{$date}}">
         <div class="input-group-addon">
