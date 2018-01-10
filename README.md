@@ -1,6 +1,6 @@
 # GroupRoomMaffia
-![alt text](https://i.imgur.com/x0eYR7A.png)
 A webpage for advanced and automated booking of group rooms at Mälardalen University (MDH)
+![alt text](https://i.imgur.com/QJPAaJj.png)
 
 #### Why?
 Mälardalen University provides limited places to studdy.
@@ -57,8 +57,8 @@ php artisan migrate
 ```
 
 7. Enable automatic polling of "MDH users sessions" by calling `php artisan schedule:run` using chron.
+enter `sudo crontab -e` and add th following line.
 ```
- sudo crontab -e
 *  *    * * *  php /var/www/DVA313/kanbanboard/artisan schedule:run >> /dev/null 2>&1
 ```
 
