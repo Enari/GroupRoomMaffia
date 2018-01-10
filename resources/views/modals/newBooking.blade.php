@@ -16,14 +16,14 @@
         <form id="newBookingForm" method="post" action="{{ action('BookingsController@book') }}">
           <div class="form-group">
             <label for="user">User:</label>
-            <select class="form-control" id="user" name="user">
+            <select class="form-control" id="user" name="user" required>
               <option>Loading sessions...</option>
             </select>
           </div>
           <div class="form-group date">
             <label for="date" class="col-form-label">Date:</label>
             <div class="input-group date">
-              <input type="text" class="form-control" id="date" name="date">
+              <input type="text" class="form-control" id="date" name="date" required>
               <div class="input-group-addon">
                 <span class="fa fa-calendar"></span>
               </div>
@@ -31,7 +31,7 @@
           </div>
           <div class="form-group">
             <label for="time">Time</label>
-            <select class="form-control" id="time" name="time">
+            <select class="form-control" id="time" name="time" required>
               <option value="0">08:15-10:00</option>
               <option value="1">10:15-12:00</option>
               <option value="2">12:15-14:00</option>
@@ -42,7 +42,7 @@
           </div>
           <div class="form-group">
             <label for="room" class="col-form-label">Room:</label>
-            <select class="form-control" id="room" name="room">
+            <select class="form-control" id="room" name="room" required>
               @foreach(\App\Helpers\HelperFunctions::rooms() as $room)
                 <option{{$room == 'U2-271' ? ' selected' : ''}}>{{$room}}</option>
               @endforeach
