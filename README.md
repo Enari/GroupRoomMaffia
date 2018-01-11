@@ -5,30 +5,30 @@ A webpage for advanced and automated booking of group rooms at Mälardalen Unive
 #### Why?
 Mälardalen University provides limited places to studdy.
 The School has bookable group rooms that has to be booked in advance. 
-For students the rooms can be booked one week in adanve, and gennerally you have to.
-I originally created a command line tool in Swift to book and schedulle bookings. But I feel that a webpage makes more sence.
+For students the rooms can be booked one week in advance, and generally you have to.
+I originally created a command line tool in Swift to book and schedule bookings. But I feel that a webpage makes more sense.
 
 #### How?
-The webpage is build using Laravel 5.5 and Bootstrap v4. It's hosted using a VPS from DigitalOcean whit cert from LetsEncrypt.
-It comunicates to MDH's booking server using HTTP requests to thir website.
+The webpage is build using Laravel 5.5 and Bootstrap v4. It's hosted using a VPS from DigitalOcean with a cert from LetsEncrypt.
+It communicates with MDH's booking server using HTTP requests to thier website.
 
 ###### Using
 * https://github.com/indrimuska/jquery-editable-select
 * https://github.com/uxsolutions/bootstrap-datepicker
 * https://github.com/laracasts/flash
 
-## Functionalty
-It's still a work in progress and currently provides equal functionality to mdh's website as well as the following:
+## Functionality
+It's still a work in progress and currently provides equal functionality to MDH's website as well as the following:
 * Abillity to unbook started bookings.
 * Multiple users where each user can have multiple MDH session
 * Session are kept alive 
-* Schedulle bookings that are more than a week away
+* Schedule bookings that are more than a week away
 * Add friends
-* Hilight your and your frinds bookings.
+* Highlight your and your frinds bookings.
   
 ![alt text](https://i.imgur.com/uh8wl9x.png)
 
-# Instalation
+# Installation
 
 ### Requirements
 * PHP >= 7.1
