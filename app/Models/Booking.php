@@ -2,9 +2,6 @@
 
 namespace App\Models;
 
-
-use App\Helpers\KronoxCommunicator;
-
 class Booking
 {
     public $bookingID;
