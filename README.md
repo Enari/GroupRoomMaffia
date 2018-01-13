@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Enari/GroupRoomMaffia.svg?branch=master)](https://travis-ci.org/Enari/GroupRoomMaffia)
+
 # GroupRoomMaffia
 A webpage for advanced and automated booking of group rooms at Mälardalen University (MDH)
 ![alt text](https://i.imgur.com/QJPAaJj.png)
@@ -36,6 +38,7 @@ It's still a work in progress and currently provides equal functionality to MDH'
 
 ## Steps
 1. Clone the repo and install dependencies
+
 ```bash
 cd /var/www/
 git clone https://github.com/Enari/GroupRoomMaffia.git
@@ -43,7 +46,8 @@ cd GroupRoomMaffia/
 composer install
 ```
 
-3. Copy `env.example` to `.env` and generate an application key. 
+3. Copy `env.example` to `.env` and generate an application key.
+
 ```bash
 cp .env.example .env
 php artisan key:generate
@@ -52,12 +56,15 @@ php artisan key:generate
 4. Edit the `.env` file with your enviorment comfiguration.
 
 5. Migrate the database
+
 ```bash
 php artisan migrate
 ```
 
 7. Enable automatic polling of "MDH users sessions" by calling `php artisan schedule:run` using chron.
+
 enter `sudo crontab -e` and add th following line.
+
 ```
 *  *    * * *  php /var/www/DVA313/kanbanboard/artisan schedule:run >> /dev/null 2>&1
 ```
