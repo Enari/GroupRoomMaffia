@@ -2,25 +2,27 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Helpers\KronoxCommunicator;
+use Illuminate\Database\Eloquent\Model;
 
-class KronoxSession extends Model
+class kronoxSession extends Model
 {
     protected $fillable = ['MdhUsername', 'JSESSIONID', 'sessionActive', 'user'];
 
-    public function poll(){
+    public function poll()
+    {
         $url = 'https://webbschema.mdh.se/ajax/ajax_session.jsp?op=poll';
         $result = KronoxCommunicator::httpGet($url, $this->JSESSIONID);
-        if($result == "OK"){
+        if ($result == 'OK') {
             $this->sessionActive = true;
-        }else{
+        } else {
             $this->sessionActive = false;
         }
         $this->save();
     }
 
-    public function getNumberOfBookings(){
+    public function getNumberOfBookings()
+    {
         return count(KronoxCommunicator::getMyBookings($this->JSESSIONID));
     }
 }

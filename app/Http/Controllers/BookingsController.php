@@ -2,24 +2,21 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Redirect;
-use Illuminate\Support\Facades\Auth;
-
 use Carbon\Carbon;
-
-use App\Helpers\KronoxCommunicator;
-use App\Models\KronoxSession;
-use App\Models\Booking;
-use App\Models\SchedulledBooking;
 use App\Models\Friend;
-
+use App\Models\Booking;
+use Illuminate\Http\Request;
+use App\Models\KronoxSession;
+use App\Models\SchedulledBooking;
+use App\Helpers\KronoxCommunicator;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class BookingsController extends Controller
 {
     public function __construct()
     {
-      $this->middleware('auth');
+        $this->middleware('auth');
     }
 
     public function index()
@@ -34,21 +31,22 @@ class BookingsController extends Controller
         // Now sort the, so we get them in propper order
         // To achive fake "two column sort" date is concatinated with time
         uasort($bookings, (function ($a, $b) {
-            if (($a->date . $a->time) == ($b->date . $b->time)) {
+            if (($a->date.$a->time) == ($b->date.$b->time)) {
                 return 0;
             }
-            return (($a->date . $a->time) < ($b->date . $b->time)) ? -1 : 1;
+
+            return (($a->date.$a->time) < ($b->date.$b->time)) ? -1 : 1;
         }));
 
         $bookings = collect($bookings);
+
         return view('bookings', compact(['sessions', 'bookings']));
     }
 
     public function book(Request $request)
     {
         // Schedulle booking if more than a week out
-        if(Carbon::parse($request->date)->gt(Carbon::now()->addWeek()))
-        {
+        if (Carbon::parse($request->date)->gt(Carbon::now()->addWeek())) {
             $booking = new SchedulledBooking;
             $booking->date = $request->date;
             $booking->room = $request->room;
@@ -64,20 +62,19 @@ class BookingsController extends Controller
         }
 
         $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=boka';
-        $url = $url . '&datum=' . urlencode(substr($request->date, 2, 8));
-        $url = $url . '&id=' . urlencode($request->room);
-        $url = $url . '&typ=RESURSER_LOKALER';
-        $url = $url . '&intervall=' . urlencode($request->time);
-        $url = $url . '&moment=' . (empty($request->message) ? "%20" : urlencode($request->message));
-        $url = $url . '&flik=FLIK_0001';
+        $url = $url.'&datum='.urlencode(substr($request->date, 2, 8));
+        $url = $url.'&id='.urlencode($request->room);
+        $url = $url.'&typ=RESURSER_LOKALER';
+        $url = $url.'&intervall='.urlencode($request->time);
+        $url = $url.'&moment='.(empty($request->message) ? '%20' : urlencode($request->message));
+        $url = $url.'&flik=FLIK_0001';
 
         $result = KronoxCommunicator::httpGet($url, $request->user);
 
-        if($result == 'OK'){
-            flash('Sucessfully room ' . $request->room . '!')->success();
-        }
-        else{
-        flash('Booking failed: ' . $result)->error();
+        if ($result == 'OK') {
+            flash('Sucessfully room '.$request->room.'!')->success();
+        } else {
+            flash('Booking failed: '.$result)->error();
         }
 
         return Redirect::back();
@@ -87,14 +84,13 @@ class BookingsController extends Controller
     {
         $session = KronoxSession::where(['user' => Auth::user()->username, 'sessionActive' => 1, 'MdhUsername' => $booker])->first();
 
-        $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=avboka&bokningsId=' . $id;
+        $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=avboka&bokningsId='.$id;
         $result = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
 
-        if($result == 'OK'){
+        if ($result == 'OK') {
             flash('Sucessfully unbooked!')->success();
-        }
-        else {
-            flash('Unbooking failed: ' . $result)->error();
+        } else {
+            flash('Unbooking failed: '.$result)->error();
         }
 
         return redirect(action('BookingsController@index'));
@@ -102,10 +98,9 @@ class BookingsController extends Controller
 
     public function allBookings($date = null)
     {
-        if($date == null)
-        {
+        if ($date == null) {
             // If time is after 20 (last grouproom time) display bookings for next day instead.
-            $date = (Carbon::createFromTime(19, 0, 0)->lt(Carbon::now('Europe/Stockholm')) ? Carbon::tomorrow() : Carbon::now()); 
+            $date = (Carbon::createFromTime(19, 0, 0)->lt(Carbon::now('Europe/Stockholm')) ? Carbon::tomorrow() : Carbon::now());
             $date = $date->toDateString();
         }
 
@@ -120,6 +115,7 @@ class BookingsController extends Controller
         }
 
         $rows = KronoxCommunicator::getAllBookings($date);
+
         return view('allbookings', compact(['rows', 'date', 'friends']));
     }
 }

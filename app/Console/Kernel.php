@@ -2,12 +2,11 @@
 
 namespace App\Console;
 
-use Illuminate\Console\Scheduling\Schedule;
-use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use Carbon\Carbon;
-
 use App\Models\KronoxSession;
 use App\Models\SchedulledBooking;
+use Illuminate\Console\Scheduling\Schedule;
+use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
 class Kernel extends ConsoleKernel
 {
@@ -38,8 +37,7 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             $toBook = SchedulledBooking::where('date', Carbon::now('Europe/Stockholm')->addWeek()->toDateString())->get();
-            foreach($toBook as $booking)
-            {
+            foreach ($toBook as $booking) {
                 $booking->book();
             }
         })->daily();

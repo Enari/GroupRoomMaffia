@@ -40,9 +40,7 @@ Route::get('/allbookings/{date?}', 'BookingsController@allBookings');
 Route::get('/schedulled', 'SchedulledBookingsController@index');
 Route::get('/schedulled/delete/{booking}', 'SchedulledBookingsController@delete');
 
-// Ajax 
+// Ajax
 Route::prefix('ajax')->group(function () {
-	Route::get('/sessions', 'KronoxSessionController@getActiveSessionsMdhUsernameAndNumberOfBookings');
+    Route::get('/sessions', 'KronoxSessionController@getActiveSessionsMdhUsernameAndNumberOfBookings');
 });
-
-
