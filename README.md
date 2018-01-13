@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/Enari/GroupRoomMaffia.svg?branch=master)](https://travis-ci.org/Enari/GroupRoomMaffia)
+[![Build Status](https://travis-ci.org/Enari/GroupRoomMaffia.svg?branch=master)](https://travis-ci.org/Enari/GroupRoomMaffia) [![StyleCI](https://styleci.io/repos/115630379/shield?style=flat)](https://styleci.io/repos/115630379/)
 
 # GroupRoomMaffia
 A webpage for advanced and automated booking of group rooms at Mälardalen University (MDH)
