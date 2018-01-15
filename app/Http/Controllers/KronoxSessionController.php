@@ -51,8 +51,36 @@ class KronoxSessionController extends Controller
             $session->delete();
             flash('Deleted Session');
         } else {
-            flash('Error');
+            flash('Error: Access Denied');
         }
+
+        return redirect(action('KronoxSessionController@index'));
+    }
+
+    public function logout(kronoxSession $session)
+    {
+        if ($session->user == Auth::user()->username) {
+            $url = 'https://webbschema.mdh.se/logout.jsp';
+            $result = KronoxCommunicator::httpGet($url, $session->JSESSIONID);
+            $session->delete();
+            flash('Success, probbably...')->success();
+        } else {
+            flash('Error: Access Denied');
+        }
+
+
+        return redirect(action('KronoxSessionController@index'));
+    }
+
+    public function poll(kronoxSession $session)
+    {
+        if ($session->user == Auth::user()->username) {
+            $session->Poll();
+            flash('Session Polled')->success();
+        } else {
+            flash('Error: Access Denied');
+        }
+
 
         return redirect(action('KronoxSessionController@index'));
     }

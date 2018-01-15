@@ -33,10 +33,17 @@
                             <td>{{ $session->sessionActive }}</td>
                             <td>{{ $session->getNumberOfBookings() }}</td>
                             <td>{{ \Carbon\Carbon::parse($session->updated_at)->diffForHumans() }}</td>
-                            <td><a href="{{ action('KronoxSessionController@delete', $session->id) }}">
-                            <button type="button" class="btn btn-danger btn-sm" title="Delete">
-                            <span class="fa fa-trash" aria-hidden="true"/>
-                            </button></a></td>
+                            <td>
+                                <a href="{{ action('KronoxSessionController@poll', $session->id) }}" role="button" class="btn btn-primary btn-sm" title="Poll the session">
+                                    <span class="fa fa-refresh" aria-hidden="true"/>
+                                </a>
+                                <a href="{{ action('KronoxSessionController@delete', $session->id) }}" role="button" class="btn btn-danger btn-sm" title="Remove the session from your account">
+                                    <span class="fa fa-trash" aria-hidden="true"/>
+                                </a>
+                                <a href="{{ action('KronoxSessionController@logout', $session->id) }}" role="button" class="btn btn-danger btn-sm" title="Sign out session and remove">
+                                    <span class="fa fa-sign-out" aria-hidden="true"/>
+                                </a>
+                            </td>
                         </tr>
 @endforeach
 @endif

@@ -23,6 +23,8 @@ Route::get('/logout', 'Auth\LoginController@logout');
 // Sessions
 Route::get('/sessions', 'KronoxSessionController@index');
 Route::get('/sessions/delete/{session}', 'KronoxSessionController@delete');
+Route::get('/sessions/logout/{session}', 'KronoxSessionController@logout');
+Route::get('/sessions/poll/{session}', 'KronoxSessionController@poll');
 Route::post('/sessions', 'KronoxSessionController@add');
 
 // Friends
