@@ -25,7 +25,7 @@ class KronoxCommunicator
 
             return $result;
         } catch (\Exception $e) {
-            flash('<strong>Failed HTTP request to URL: </strong><samp>' . $url . '</samp>')->error()->important();
+            flash('<strong>Failed HTTP request to URL: </strong><samp>'.$url.'</samp>')->error()->important();
 
             return;
         }
