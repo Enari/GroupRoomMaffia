@@ -26,7 +26,7 @@ class KronoxSessionController extends Controller
         $url = 'https://webbschema.mdh.se/ajax/ajax_session.jsp?op=anvandarId';
         $result = KronoxCommunicator::httpGet($url, $request->JSESSIONID);
 
-        if ($result == 'INLOGGNING KRÄVS') {
+        if (empty($result) || $result == 'INLOGGNING KRÄVS') {
             flash('The supplied JSESSIONID is not logged in.')->error();
 
             return redirect(action('KronoxSessionController@index'));

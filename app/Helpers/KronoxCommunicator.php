@@ -16,6 +16,7 @@ class KronoxCommunicator
             'header'  => "Content-type: application/x-www-form-urlencoded\r\n".
             'Cookie: JSESSIONID='.$JSESSIONID.";\r\n",
             'method'  => 'GET',
+            'timeout' => 500,
         ], ];
         $context = stream_context_create($options);
 
@@ -24,6 +25,8 @@ class KronoxCommunicator
 
             return $result;
         } catch (\Exception $e) {
+            flash('<strong>Failed HTTP request to URL: </strong><samp>' . $url . '</samp>')->error()->important();
+
             return;
         }
     }
