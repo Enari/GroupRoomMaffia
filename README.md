@@ -24,11 +24,11 @@ It communicates with MDH's booking server using HTTP requests to thier website.
 ## Functionality
 It's still a work in progress and currently provides equal functionality to MDH's website as well as the following:
 * Abillity to unbook started bookings.
-* Multiple users where each user can have multiple MDH session
+* Multiple users - Each user can have multiple MDH session
 * Session are kept alive 
 * Schedule bookings that are more than a week away
-* Add friends
-* Highlight your and your frinds bookings.
+* Recuring weekly bookings
+* Friends System - Highlight your and your frinds bookings.
   
 ![](https://i.imgur.com/nJqZHDl.png)
 
