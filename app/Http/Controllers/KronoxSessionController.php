@@ -68,7 +68,6 @@ class KronoxSessionController extends Controller
             flash('Error: Access Denied');
         }
 
-
         return redirect(action('KronoxSessionController@index'));
     }
 
@@ -80,7 +79,6 @@ class KronoxSessionController extends Controller
         } else {
             flash('Error: Access Denied');
         }
-
 
         return redirect(action('KronoxSessionController@index'));
     }

@@ -12,10 +12,9 @@ class SchedulledBooking extends Model
     {
         $session = KronoxSession::where(['sessionActive' => 1, 'MdhUsername' => $this->booker])->first();
 
-        if(empty($session)) {
+        if (empty($session)) {
             $this->result = 'No active session';
-        }
-        else {
+        } else {
             $url = 'https://webbschema.mdh.se/ajax/ajax_resursbokning.jsp?op=boka';
             $url = $url.'&datum='.urlencode(substr($this->date, 2, 8));
             $url = $url.'&id='.urlencode($this->room);
@@ -30,11 +29,10 @@ class SchedulledBooking extends Model
         $this->save();
 
         // Create new booking if recurring
-        if($this->recurring == 1)
-        {
+        if ($this->recurring == 1) {
             $new = $this->replicate();
             $new->date = Carbon::parse($new->date)->addWeek()->toDateString();
-            $new->result = NULL;
+            $new->result = null;
             $new->save();
         }
     }
