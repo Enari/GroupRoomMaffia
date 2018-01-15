@@ -40,7 +40,7 @@ class KronoxSessionController extends Controller
         ]);
 
         $newsession->save();
-        flash('Sucess')->success();
+        flash('Success')->success();
 
         return redirect(action('KronoxSessionController@index'));
     }
