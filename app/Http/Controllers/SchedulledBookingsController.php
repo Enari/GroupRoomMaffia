@@ -39,6 +39,7 @@ class SchedulledBookingsController extends Controller
     {
         if ($booking->user != Auth::user()->username) {
             flash('You did not make that schedulled booking...')->error();
+
             return redirect(action('SchedulledBookingsController@index'));
         }
 
