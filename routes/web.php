@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', function (Request $request) {
+Route::get('/', function () {
     return redirect('/allbookings');
 });
 
@@ -41,6 +41,7 @@ Route::get('/allbookings/{date?}', 'BookingsController@allBookings');
 // Schedulled Bookings
 Route::get('/schedulled', 'SchedulledBookingsController@index');
 Route::get('/schedulled/delete/{booking}', 'SchedulledBookingsController@delete');
+Route::post('/schedulled', 'SchedulledBookingsController@setRecuring');
 
 // Ajax
 Route::prefix('ajax')->group(function () {

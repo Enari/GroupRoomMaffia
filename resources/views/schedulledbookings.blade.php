@@ -35,7 +35,7 @@
       <td>{{ $booking->room }}</td>
       <td>{{ $booking->booker }}</td>
       <td>{{ $booking->message }}</td>
-      <td><input type="checkbox" {{ $booking->recurring ? "checked" : ""}}></label></td>
+      <td><input type="checkbox" data-id="{{ $booking->id}}"{{ $booking->recurring ? " checked" : ""}}></label></td>
       <td>{{ $booking->result }}</td>
       <td>
         <a href="{{ action('SchedulledBookingsController@delete', $booking->id) }}">
@@ -51,3 +51,18 @@
 </table>
 </div>
 @endsection
+@push('scripts')
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("input:checkbox").change(function() { 
+      var isChecked = (this.checked) ? 1:0; 
+      //console.log('Checkbox ' + $(this).data("id") + ' is ' +isChecked)
+      $.ajax({
+        url: '/schedulled',
+        type: 'POST',
+        data: {_token: "{{ csrf_token() }}", id: $(this).data("id"), checked: (this.checked)}
+      });
+    });        
+  });
+</script>
+@endpush

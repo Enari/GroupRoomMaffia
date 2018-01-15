@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\SchedulledBooking;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class SchedulledBookingsController extends Controller
@@ -31,5 +32,18 @@ class SchedulledBookingsController extends Controller
         flash('Deleted Schedulled Booking');
 
         return redirect(action('SchedulledBookingsController@index'));
+    }
+
+    public function setRecuring(Request $request)
+    {
+        $booking = SchedulledBooking::find($request->id);
+        
+        if ($booking->user == Auth::user()->username) {
+            $booking->recurring = $request->checked ? 1 : 0;
+            $booking->save();
+        }
+
+        // It's for ajax requests, but i guess we have to return something
+        return \Redirect::back();
     }
 }
