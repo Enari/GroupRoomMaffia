@@ -4,9 +4,9 @@
 
 # GroupRoomMaffia
 A webpage for advanced and automated booking of group rooms at Mälardalen University (MDH)
-![alt text](https://i.imgur.com/QJPAaJj.png)
+![](https://i.imgur.com/JS7DWz6.png)
 
-#### Why?
+### Introduction
 Mälardalen University provides limited places to studdy.
 The School has bookable group rooms that has to be booked in advance. 
 For students the rooms can be booked one week in advance, and generally you have to.
@@ -16,7 +16,7 @@ I originally created a command line tool in Swift to book and schedule bookings.
 The webpage is build using Laravel 5.5 and Bootstrap v4. It's hosted using a VPS from DigitalOcean with a cert from LetsEncrypt.
 It communicates with MDH's booking server using HTTP requests to thier website.
 
-###### Using
+###### Credit
 * https://github.com/indrimuska/jquery-editable-select
 * https://github.com/uxsolutions/bootstrap-datepicker
 * https://github.com/laracasts/flash
@@ -30,7 +30,7 @@ It's still a work in progress and currently provides equal functionality to MDH'
 * Add friends
 * Highlight your and your frinds bookings.
   
-![alt text](https://i.imgur.com/uh8wl9x.png)
+![](https://i.imgur.com/nJqZHDl.png)
 
 # Installation
 
