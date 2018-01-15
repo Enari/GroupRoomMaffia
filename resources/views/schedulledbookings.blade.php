@@ -38,10 +38,11 @@
       <td><input type="checkbox" data-id="{{ $booking->id}}"{{ $booking->recurring ? " checked" : ""}}></label></td>
       <td>{{ $booking->result }}</td>
       <td>
-        <a href="{{ action('SchedulledBookingsController@delete', $booking->id) }}">
-          <button type="button" class="btn btn-danger btn-sm" title="Delete">
-            <span class="fa fa-trash" aria-hidden="true"/>
-          </button>
+        <a href="{{ action('SchedulledBookingsController@addNextWeek', $booking->id) }}" role="button" class="btn btn-primary btn-sm" title="New next week from this">
+          <span class="fa fa-arrow-down" aria-hidden="true"/>
+        </a>
+        <a href="{{ action('SchedulledBookingsController@delete', $booking->id) }}" role="button" class="btn btn-danger btn-sm" title="Delete">
+          <span class="fa fa-trash" aria-hidden="true"/>
         </a>
       </td>
     </tr>

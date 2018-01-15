@@ -41,6 +41,7 @@ Route::get('/allbookings/{date?}', 'BookingsController@allBookings');
 // Schedulled Bookings
 Route::get('/schedulled', 'SchedulledBookingsController@index');
 Route::get('/schedulled/delete/{booking}', 'SchedulledBookingsController@delete');
+Route::get('/schedulled/down/{booking}', 'SchedulledBookingsController@addNextWeek');
 Route::post('/schedulled', 'SchedulledBookingsController@setRecuring');
 
 // Ajax

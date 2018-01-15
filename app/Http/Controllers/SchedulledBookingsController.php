@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use App\Models\SchedulledBooking;
 use Illuminate\Support\Facades\Auth;
@@ -30,6 +31,23 @@ class SchedulledBookingsController extends Controller
 
         $booking->delete();
         flash('Deleted Schedulled Booking');
+
+        return redirect(action('SchedulledBookingsController@index'));
+    }
+
+    public function addNextWeek(SchedulledBooking $booking)
+    {
+        if ($booking->user != Auth::user()->username) {
+            flash('You did not make that schedulled booking...')->error();
+            return redirect(action('SchedulledBookingsController@index'));
+        }
+
+        $new = $booking->replicate();
+        $new->date = Carbon::parse($new->date)->addWeek()->toDateString();
+        $new->result = null;
+        $new->save();
+
+        flash('Added new schedulled booking');
 
         return redirect(action('SchedulledBookingsController@index'));
     }
