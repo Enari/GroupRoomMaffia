@@ -43,6 +43,9 @@
         {{-- If it's a teacher who made the booking make the name red. --}}
         @elseif(strlen($cell["text"]) == 5) 
           <div class="text-center" style="color:red;">{{ $cell["text"] }}</div>
+        {{-- Trying to match multiple teachers on one booking and make thier names red. --}}
+        @elseif(preg_match('/[a-z]{3}[0-9]{2}\D/', $cell["text"], $matches, PREG_OFFSET_CAPTURE) == 1)
+          <div class="text-center" style="color:red;">{{ $cell["text"] }}</div>
         @else
           <div class="text-center">{{ $cell["text"] }}</div>
         @endif
