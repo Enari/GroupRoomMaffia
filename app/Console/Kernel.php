@@ -43,6 +43,11 @@ class Kernel extends ConsoleKernel
                 $booking->book();
             }
         })->daily();
+
+        $schedule->call(function () {
+            $dateString = Carbon::now('Europe/Stockholm')->toDayDateTimeString();
+            \Log::Info("This is Daily at 23:00: " . $dateString);
+        })->dailyAt('23:00');
     }
 
     /**
