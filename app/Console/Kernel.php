@@ -37,6 +37,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             $toBook = SchedulledBooking::where('date', Carbon::now('Europe/Stockholm')->addWeek()->toDateString())->get();
+            $dateString = Carbon::now('Europe/Stockholm')->toDayDateTimeString();
+            \Log::Info("Run Schedulled bookings at: " . $dateString);
             foreach ($toBook as $booking) {
                 $booking->book();
             }
