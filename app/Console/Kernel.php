@@ -37,17 +37,12 @@ class Kernel extends ConsoleKernel
 
         $schedule->call(function () {
             $toBook = SchedulledBooking::where('date', Carbon::now('Europe/Stockholm')->addWeek()->toDateString())->get();
-            $dateString = Carbon::now('Europe/Stockholm')->toDayDateTimeString();
-            \Log::Info('Run Schedulled bookings at 00:05 timeszoned: '.$dateString);
+
             foreach ($toBook as $booking) {
                 $booking->book();
             }
-        })->dailyAt('00:05')->timezone('Europe/Stockholm');
+        })->dailyAt('00:04')->timezone('Europe/Stockholm');
 
-        $schedule->call(function () {
-            $dateString = Carbon::now('Europe/Stockholm')->toDayDateTimeString();
-            \Log::Info('This is Daily: '.$dateString);
-        })->daily();
     }
 
     /**
