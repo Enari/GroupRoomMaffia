@@ -42,7 +42,6 @@ class Kernel extends ConsoleKernel
                 $booking->book();
             }
         })->dailyAt('00:04')->timezone('Europe/Stockholm');
-
     }
 
     /**
