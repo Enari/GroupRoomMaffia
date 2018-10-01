@@ -77,7 +77,7 @@ php artisan migrate
 enter `sudo crontab -e` and add th following line.
 
 ```
-*  *    * * *  php /var/www/DVA313/kanbanboard/artisan schedule:run >> /dev/null 2>&1
+*  *    * * *  php /var/www/GroupRoomMaffia/artisan schedule:run >> /dev/null 2>&1
 ```
 
 8. Point you webserver to `GroupRoomMaffia/public`, note that mod_rewrite needs to be enabled.
