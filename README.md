@@ -39,6 +39,15 @@ It's still a work in progress and currently provides equal functionality to MDH'
 * Composer
 
 ## Steps
+0. If you haven used composer before
+```
+wget https://getcomposer.org/installer
+php installer
+sudo mv composer.phar /usr/local/bin/composer
+sudo apt-get install php7.2-mbstring 
+sudo apt-get install php-xml
+```
+
 1. Clone the repo and install dependencies
 
 ```bash
