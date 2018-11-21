@@ -5,7 +5,7 @@ namespace App\Models;
 use App\Helpers\KronoxCommunicator;
 use Illuminate\Database\Eloquent\Model;
 
-class kronoxSession extends Model
+class KronoxSession extends Model
 {
     protected $fillable = ['MdhUsername', 'JSESSIONID', 'sessionActive', 'user'];
 
