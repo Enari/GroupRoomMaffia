@@ -2,13 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Carbon\Carbon;
-use App\Models\Friend;
+use App\Helpers\KronoxCommunicator;
 use App\Models\Booking;
-use Illuminate\Http\Request;
+use App\Models\Friend;
 use App\Models\KronoxSession;
 use App\Models\SchedulledBooking;
-use App\Helpers\KronoxCommunicator;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 

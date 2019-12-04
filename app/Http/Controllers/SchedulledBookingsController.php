@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\SchedulledBooking;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
-use App\Models\SchedulledBooking;
 use Illuminate\Support\Facades\Auth;
 
 class SchedulledBookingsController extends Controller

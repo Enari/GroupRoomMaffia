@@ -2,9 +2,9 @@
 
 namespace App\Helpers;
 
-use Carbon\Carbon;
 use App\Models\Booking;
 use App\Models\KronoxSession;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
 
 class KronoxCommunicator

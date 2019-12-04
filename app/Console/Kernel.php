@@ -2,9 +2,9 @@
 
 namespace App\Console;
 
-use Carbon\Carbon;
 use App\Models\KronoxSession;
 use App\Models\SchedulledBooking;
+use Carbon\Carbon;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 

@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use Carbon\Carbon;
 use App\Helpers\KronoxCommunicator;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 class SchedulledBooking extends Model

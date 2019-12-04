@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\KronoxSession;
 use App\Helpers\KronoxCommunicator;
+use App\Models\KronoxSession;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class KronoxSessionController extends Controller
